@@ -9,6 +9,9 @@ var request = require('request');
 // Require models for database
 var db = require("./models");
 
+// Require routes
+var router = require("./routes");
+
 // Setup express
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -43,10 +46,6 @@ const $ = cheerio.load(html);
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.get('/', function (req, res) {
-    res.render('home');
-});
- 
 app.listen(PORT, function() {
     console.log(`Listening on port ${PORT}`);
 });
