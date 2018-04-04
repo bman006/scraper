@@ -6,6 +6,8 @@ const cheerio = require('cheerio');
 var request = require('request');
 const mongoose = require('mongoose');
 
+// Require customer javascript
+var Scraper = require('./scripts/scraperStuff');
 
 // Require models for database
 var db = require("./models");
@@ -38,7 +40,7 @@ app.set('view engine', 'handlebars');
 // Routes
 
 // Scrape data from site
-app.get('/scrape', function() {
+app.get('/scrape', function(req, res) {
     // Web page to scrape data from
     var pageToScrape = 'https://www.allmusic.com/';
 
@@ -52,14 +54,36 @@ app.get('/scrape', function() {
         var results = [];
 
         $('.release-container').each(function(i, element) {
-            var album = $(element).find('div.title').children('a').text();
+            var artistName  = $(element).find('div.artist').children('a').text();
+            var artistUrl   = $(element).find('div.artist').children('a').attr('href');
+            var albumId     = $(element).find('div.title').children('a').attr('data-tooltip');
+                albumId     = JSON.parse(albumId);
+            var albumName   = $(element).find('div.title').children('a').text();
+            var albumUrl    = $(element).find('div.title').children('a').attr('href');
+            var genre       = $(element).find('div.genres').text();
+                genre       = Scraper.genreCleaner(genre);
+            var rating      = $(element).find('span.allmusic-rating').attr('class');
+                rating      = Scraper.ratingGetter(rating);
+            var summary     = $(element).find('div.headline-review').text().trim();
+                summary     = summary.replace(,"");
+
             results.push({
-                album: album
+                artist: {
+                    name:   artistName,
+                    url:    artistUrl
+                },
+                album: {
+                    siteId: albumId.id,
+                    name:   albumName,
+                    url:    albumUrl,
+                    genre:  genre,
+                    rating: rating,
+                    summary: summary
+                },
             })
         });
         console.log(results);
         // Save data to MongoDB
-
     });
 })
 
