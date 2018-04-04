@@ -1,3 +1,3 @@
-var pages = '';
+module.exports = function(app, db) {
 
-module.exports = pages;
+}
