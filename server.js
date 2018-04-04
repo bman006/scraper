@@ -40,7 +40,7 @@ app.set('view engine', 'handlebars');
 // Routes
 
 // Scrape data from site
-app.get('/scrape', function(req, res) {
+app.get('/scrape', function(req, response) {
     // Web page to scrape data from
     var pageToScrape = 'https://www.allmusic.com/';
 
@@ -65,8 +65,9 @@ app.get('/scrape', function(req, res) {
             var rating      = $(element).find('span.allmusic-rating').attr('class');
                 rating      = Scraper.ratingGetter(rating);
             var summary     = $(element).find('div.headline-review').text().trim();
-                summary     = summary.replace(,"");
+            // Get rid of excess characters in summary string with some code here
 
+            // Add info to object to prep for database storage
             results.push({
                 artist: {
                     name:   artistName,
@@ -79,11 +80,17 @@ app.get('/scrape', function(req, res) {
                     genre:  genre,
                     rating: rating,
                     summary: summary
-                },
-            })
+                }
+            });
         });
-        console.log(results);
+
         // Save data to MongoDB
+        db.Album.create(results).then(function(album) {
+            console.log(article);
+        }).catch(function(err) {
+            return res.json(err)
+        })
+        response.end();
     });
 })
 

@@ -1,4 +1,3 @@
-console.log('helloooooo');
 var Scraper = {
     genreCleaner: function(raw) {
         // Get rid of linebreak
@@ -10,7 +9,7 @@ var Scraper = {
     },
     ratingGetter: function(raw) {
         raw = raw.slice(raw.length-1);
-
+        raw = Number(raw);
         return raw
     }
 }
