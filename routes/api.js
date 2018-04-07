@@ -65,6 +65,8 @@ app.get('/scrape', function(req, res) {
             // get rid of duplicate entries
             results = Scraper.checkForDuplicates(databaseIds, results);
             
+            var resultCount = results.length;
+            
             // Save data to MongoDB
             db.Album.create(results).then(function(album) {
                 console.log(article);
@@ -74,7 +76,7 @@ app.get('/scrape', function(req, res) {
         });
 
 
-        res.end();
+        res.json({resultCount: resultCount});
     });
 });
 

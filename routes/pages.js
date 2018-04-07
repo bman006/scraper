@@ -17,5 +17,4 @@ module.exports = function(app, db) {
             res.render('index', hbsobj);
         });
     });
-
 }
