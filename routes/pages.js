@@ -11,9 +11,8 @@ module.exports = function(app, db) {
         // Get data from mongo
         db.Album.find({}, function(err, albums) {
 
-            console.log(`Stuff here: ${albums[0]}`);
             var hbsobj = {
-                albums: albums
+                album: albums
             }
             res.render('index', hbsobj);
         });

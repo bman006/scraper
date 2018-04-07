@@ -1,5 +1,20 @@
-{{#each this}}
-    <div album-id="{{albums.album.siteId}}">
-        Wassup
+{{#each album}}
+    <div class="album-container" album-id="{{this.album.siteId}}">
+        {{!-- Album name --}}
+        <a  class="album-name" target="_blank" href="{{this.album.url}}">
+            <h2>{{this.album.name}}</h2>
+        </a>
+        {{!-- Genre --}}
+        <h3 class="genre">Rating: {{this.album.genre}}</h3>
+        {{!-- Rating --}}
+        <h3 class="rating">Rating: {{this.album.rating}}</h3>
+        {{!-- Artist name --}}
+        <a  class="artist-name" target="_blank" href="{{this.artist.url}}">
+            <h2>{{this.artist.name}}</h2>
+        </a>
+        {{!-- Summary --}}
+        <p class="summary">{{this.album.summary}}</p>
+        {{!-- Comments --}}
+        <textarea class="comments" rows="10" placeholder="Comments"></textarea>
     </div>
 {{/each}}
