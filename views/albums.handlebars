@@ -1,0 +1,28 @@
+<div class="container">
+    {{#each album}}
+        <div class="album-container row" album-id="{{this.album.siteId}}">
+            <div class="row">
+                {{!-- Album name --}}
+                <a  class="album-name col-md-4" target="_blank" href="{{this.album.url}}">
+                    <h3>{{this.album.name}}</h3>
+                </a>
+                {{!-- Artist name --}}
+                <a  class="artist-name col-md-4" target="_blank" href="{{this.artist.url}}">
+                    <h3>{{this.artist.name}}</h3>
+                </a>
+                {{!-- Genre --}}
+                <h4 class="genre col-md-2">Genre: {{this.album.genre}}</h4>
+                {{!-- Rating --}}
+                <h4 class="rating col-md-2">Rating: {{this.album.rating}}</h4>
+            </div>
+            <div class="row">
+                {{!-- Summary --}}
+                <p class="summary col-md-5">{{this.album.summary}}</p>
+                {{!-- Comments --}}
+                <textarea class="comments col-md-6" rows="2" placeholder="Comments"></textarea>
+                <button class='submit-comment col-md-1'>submit</button>
+            </div>
+        </div>
+    {{/each}}   
+</div>
+<script src='./js/albums.js'></script>

@@ -14,7 +14,7 @@ module.exports = function(app, db) {
             var hbsobj = {
                 album: albums
             }
-            res.render('index', hbsobj);
+            res.render('albums', hbsobj);
         });
     });
 }
